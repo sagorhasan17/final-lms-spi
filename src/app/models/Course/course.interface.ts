@@ -12,7 +12,7 @@ export interface ICourse {
   category: string;
   tags?: string[];
   teacher: Types.ObjectId; // User (role: teacher)
-  lessons: Types.ObjectId[];
+  // lessons: Types.ObjectId[];
   totalLessons: number;
   enrolledStudents: Types.ObjectId[];
   totalEnrollments: number;

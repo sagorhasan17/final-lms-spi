@@ -13,7 +13,7 @@ const courseSchema = new Schema<ICourse>({
   category: { type: String, required: true },
   tags: { type: [String], default: [] },  
   teacher: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  lessons: [{ type: Schema.Types.ObjectId, ref: 'Lesson' }],
+  // lessons: [{ type: Schema.Types.ObjectId, ref: 'Lesson' }],
   totalLessons: { type: Number, default: 0 },
   enrolledStudents: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   totalEnrollments: { type: Number, default: 0 }, 
