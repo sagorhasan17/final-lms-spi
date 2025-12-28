@@ -8,7 +8,6 @@ const createCourseService = async (payLoad: ICourse) => {
 }
 
 
-
 export const CourseService = {
   createCourseService,
 };
