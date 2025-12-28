@@ -1,37 +1,42 @@
 import jwt from 'jsonwebtoken';
 import { UserModel } from '../User/user.model.js';
+import { comparePassword } from '../../../utils/bcrypt.js';
 
 const CreateAuthService = async (payLoad: {
-  userId: string;
+  uId: string;
   password: string;
 }) => {
-  const { userId, password } = payLoad;
+  const { uId, password } = payLoad;
 
-  //Is user already exists?
-  const user = await UserModel.findOne({ userId, isDeleted: false });
+  //User exists?
+  const user = await UserModel.findOne({
+    uId,
+    isDeleted: false,
+  }).select('+password');
 
   if (!user) {
     throw new Error('User does not exist');
   }
 
-  //IS password matched?
-  if (user.password !== password) {
+  //Password match using bcrypt
+  const isPasswordMatched = await comparePassword(password, user.password);
+
+  if (!isPasswordMatched) {
     throw new Error('Password is incorrect');
   }
 
-  //JWT token generate
-
+  // JWT generate
   const token = jwt.sign(
     {
       _id: user._id,
       uId: user.uId,
       role: user.role,
     },
-    process.env.JWT_SECRET || 'default_secret',
+    process.env.JWT_SECRET as string,
     { expiresIn: '3d' }
   );
 
-  //return token
+  //Return response
   return {
     token,
     user: {
