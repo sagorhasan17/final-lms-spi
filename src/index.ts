@@ -6,6 +6,7 @@ import { TeacherRoutes } from './app/models/Teacher/teacher.routes.js';
 import { AuthRoutes } from './app/models/Auth/auth.routes.js';
 import { EnrollmentRoutes } from './app/models/Enrollment/enrollment.routes.js';
 import { StudentRoutes } from './app/models/Student/student.routes.js';
+import { LessonRoutes } from './app/models/Lesson/lesson.routes.js';
 
 dotenv.config();
 
@@ -20,9 +21,7 @@ app.use('/api/v1/courses', CourseRoutes);
 app.use('/api/v1/teachers', TeacherRoutes);
 app.use('/api/v1/enrollments', EnrollmentRoutes);
 app.use('/api/v1/students', StudentRoutes);
-
-
-
+app.use('/api/v1/lessons', LessonRoutes);
 
 app.get('/', (req, res) => {
   res.send(`This server is properly running on port : ${port}`);
